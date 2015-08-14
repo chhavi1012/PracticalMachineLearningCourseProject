@@ -147,6 +147,18 @@ confusionMat
 
 The out-of-sample error rate is 0.23%.
 
+##Estimation of the out-of-sample error rate
+
+The train2 test set was removed and left untouched during variable selection, training and optimizing of the Random Forest algorithm. Therefore this testing subset gives an unbiased estimate of the Random Forest algorithm's prediction accuracy (99.77% as calculated above). The Random Forest's out-of-sample error rate is derived by the formula 100% - Accuracy = 0.23%, or can be calculated directly by the following lines of code:
+
+```{r}
+missClass = function(values, predicted) {
+  sum(predicted != values) / length(values)
+}
+OOS_errRate = missClass(train2$classe, predictions)
+OOS_errRate
+```
+
 ##Coursera Submission
 We predict the classification of the 20 observations of the testing data set for Coursera's "Course Project: Submission" challenge page:
 
@@ -174,6 +186,8 @@ write_files = function(x){
 }
 write_files(answers)
 ```
+
+
 
 ##Conclusion
 In this assignment, we accurately predicted the classification of 20 observations using a Random Forest algorithm trained on a subset of data using less than 20% of the covariates.

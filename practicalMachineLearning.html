@@ -221,6 +221,16 @@ confusionMat</code></pre>
 <p>The out-of-sample error rate is 0.23%.</p>
 </div>
 </div>
+<div id="estimation-of-the-out-of-sample-error-rate" class="section level2">
+<h2>Estimation of the out-of-sample error rate</h2>
+<p>The train2 test set was removed and left untouched during variable selection, training and optimizing of the Random Forest algorithm. Therefore this testing subset gives an unbiased estimate of the Random Forest algorithm’s prediction accuracy (99.77% as calculated above). The Random Forest’s out-of-sample error rate is derived by the formula 100% - Accuracy = 0.23%, or can be calculated directly by the following lines of code:</p>
+<pre class="r"><code>missClass = function(values, predicted) {
+  sum(predicted != values) / length(values)
+}
+OOS_errRate = missClass(train2$classe, predictions)
+OOS_errRate</code></pre>
+<pre><code>## [1] 0.002294163</code></pre>
+</div>
 <div id="coursera-submission" class="section level2">
 <h2>Coursera Submission</h2>
 <p>We predict the classification of the 20 observations of the testing data set for Coursera’s “Course Project: Submission” challenge page:</p>
